@@ -119,11 +119,17 @@ The 'Privacy' link has an incorrect link.  It now redirects the user to the /ter
 **Description:**
 
 When a factorial result is longer than 20 digits (the result of n! where n>=22), the calculator returns the result in the scientific notation <significant>e+<order of magnitude>. The calculator displays a maximum of 16-digit scale (the part after ‘.’) in the significant for integer values from 22-170.  However, it is not consistent.  The following examples show such inconsistency.  In the case of 22!, 25!, and 26!, they have 16-digit scales.  In the case of 23! and 24!, they have 15-digit scales.  42! displays a 14-digit scale.  Other than the inconsistency, the significant also appears to be wrong in some cases.  For example, in the case of 26!, the result is 403291461126605635584000000, but the calculator returns it as 4.0329146112660565e+26, while it should be 4.0329146112660564e+26 (with rounding-up) instead.
+  
 22! (1124000727777607680000) => 1.1240007277776077e+21 (16-digit scale, rounding-up) 
+
 23! (25852016738884976640000) => 2.585201673888498e+22  (15-digit scale, rounding-up)
+
 24! (620448401733239439360000)  => 6.204484017332394e+23  (15-digit scale, rounding-up) 
+
 25! (15511210043330985984000000) => 1.5511210043330986e+25 (16-digit scale, rounding-up)
+
 26! (403291461126605635584000000) => 4.0329146112660565e+26 (16-digit scale, neither rounding-up nor -down with the ending digit 5)
+
 42! (1405006117752879898543142606244511569936384000000000) => 1.40500611775288e+51 (14-digit scale, rounding-up)
 
 **How to Reproduce:**
