@@ -85,8 +85,11 @@ To run the tests, start Cypress Test Runner:
 ## Bug reports
 ---
 **[BUG-0001] Incorrect page title**
+
 Description:
+
 The page title is incorrect.  The spec specifies it as 'Factorial', but it is 'Factoriall' instead.
+
 How to Reproduce:
 1. Visit http://qainterview.pythonanywhere.com/
 2. Verify the tab name.
