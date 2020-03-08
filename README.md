@@ -86,37 +86,37 @@ To run the tests, start Cypress Test Runner:
 ---
 **[BUG-0001] Incorrect page title**
 
-Description:
+**Description:**
 
 The page title is incorrect.  The spec specifies it as 'Factorial', but it is 'Factoriall' instead.
 
-How to Reproduce:
+**How to Reproduce:**
 1. Visit http://qainterview.pythonanywhere.com/
 2. Verify the tab name.
 ---
 **[BUG-0002] Incorrect link for 'Terms and Conditions’**
 
-Description:
+**Description:**
 
 The 'Terms and Conditions' link has an incorrect link.  It now redirects the user to the /privacy page.
 
-How to Reproduce:
+**How to Reproduce:**
 1. Visit http://qainterview.pythonanywhere.com/
 2. Click on the 'Terms and Conditions' link.
 ---
 **[BUG-0003] Incorrect link for 'Privacy’**
 
-Description:
+**Description:**
 
 The 'Privacy' link has an incorrect link.  It now redirects the user to the /terms page.
 
-How to Reproduce:
+**How to Reproduce:**
 1. Visit http://qainterview.pythonanywhere.com/
 2. Click on the 'Privacy' link.
 ---
 **[BUG-0004] Inconsistent and sometimes incorrect significant in a result with scientific notation**
 
-Description:
+**Description:**
 
 When a factorial result is longer than 20 digits (the result of n! where n>=22), the calculator returns the result in the scientific notation <significant>e+<order of magnitude>. The calculator displays a maximum of 16-digit scale (the part after ‘.’) in the significant for integer values from 22-170.  However, it is not consistent.  The following examples show such inconsistency.  In the case of 22!, 25!, and 26!, they have 16-digit scales.  In the case of 23! and 24!, they have 15-digit scales.  42! displays a 14-digit scale.  Other than the inconsistency, the significant also appears to be wrong in some cases.  For example, in the case of 26!, the result is 403291461126605635584000000, but the calculator returns it as 4.0329146112660565e+26, while it should be 4.0329146112660564e+26 (with rounding-up) instead.
 22! (1124000727777607680000) => 1.1240007277776077e+21 (16-digit scale, rounding-up) 
@@ -126,14 +126,14 @@ When a factorial result is longer than 20 digits (the result of n! where n>=22),
 26! (403291461126605635584000000) => 4.0329146112660565e+26 (16-digit scale, neither rounding-up nor -down with the ending digit 5)
 42! (1405006117752879898543142606244511569936384000000000) => 1.40500611775288e+51 (14-digit scale, rounding-up)
 
-How to Reproduce:
+**How to Reproduce:**
 1. Visit http://qainterview.pythonanywhere.com/
 2. Enter the values 22, 23, 24, 25, 26, 42 (and others if needed)
 3. Click on the 'Calculate!' button for each value and verify the result.
 ---
 **[BUG-0005] Unsupported integer values should return an error**
 
-Description:
+**Description:**
 
 The spec specifies that only integer values in the range of 0-170 are supported.  However, the behavior of entering an unsupported integer values raises usability issues.  Currently, entering an integer between 170-989 returns an error 'The factorial of <num> is: Infinity', while entering an integer with a value >= 990 or < 0 does not return anything.  The problem of not returning anything is that the result displayed remains the one from the previous input.  For example, if a user does the following sequentially:
 
@@ -147,7 +147,7 @@ Or if a user does the following sequentially:
 
 This is confusing to the user.  Entering all these unsupported integers should raise a proper error to make the application more user friendly. 
 
-How to Reproduce:
+**How to Reproduce:**
 1. Visit http://qainterview.pythonanywhere.com/
 2. Enter integer values from the range 170-989, greater than 989, and negative integer values. 
 3. Click on the 'Calculate!' button for each value and verify the result.
