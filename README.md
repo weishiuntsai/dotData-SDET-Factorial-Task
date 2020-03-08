@@ -144,11 +144,13 @@ When a factorial result is longer than 20 digits (the result of n! where n>=22),
 The spec specifies that only integer values in the range of 0-170 are supported.  However, the behavior of entering an unsupported integer values raises usability issues.  Currently, entering an integer between 170-989 returns an error 'The factorial of <num> is: Infinity', while entering an integer with a value >= 990 or < 0 does not return anything.  The problem of not returning anything is that the result displayed remains the one from the previous input.  For example, if a user does the following sequentially:
 
 **Enter 1 and click the ‘Calculate!’ button.  The result is ‘The factorial of 1 is: 1’.**
+
 **Enter -1 and click the ‘Calculate!’ button.  The result is not cleared.  It remains as ‘The factorial of 1 is: 1’.**
 
 Or if a user does the following sequentially:
 
 **Enter ABCD and click the ‘Calculate!’ button.  The result is ‘Please enter an integer’.**
+
 **Enter -1 and click the ‘Calculate!’ button.  The result is not cleared.  It remains as ‘Please enter an integer’.**
 
 This is confusing to the user.  Entering all these unsupported integers should raise a proper error to make the application more user friendly. 
