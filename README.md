@@ -75,7 +75,7 @@ To run the tests, start Cypress Test Runner:
 |---|---|---|---|
 |Page Title|Failed|[BUG-0001]||
 |Heading|Passed|||
-|Calculator with supported integer values|Failed|[BUG-0004]||
+|Calculator with supported integer values|Failed|[BUG-0004]|This test is designed to be adjustable by changing const scale to a smaller value and roundUp to false to test with less precision in the significant of a scientific notation for the factorial value if needed.  To accommodate the CI/CD model, it is also designed to be adjustable for testing all 171 supported integer values as a development unit test if needed.|
 |Calculator with integer values outside of supported range|Passed|[BUG-0005]|The spec doesn't specify the expected behavior. Test is implemented according to the current behavior.  It needs to be updated once the behavior (what error would it return?) is clarified.|
 |Calculator with non-integer values|Passed||| 
 |Terms and Conditions|Failed|[BUG-0002]||
