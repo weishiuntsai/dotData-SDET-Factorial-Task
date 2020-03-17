@@ -1,4 +1,17 @@
+// Import the helper methods in the TestSite class.
+import {TestSite} from '../dotdata_lib/test_site.js'
+
 describe('Factorial Calculator Test', function() {
+
+  var ts
+
+  //--------------------------------------------------------------------------
+  // Hook to be executed once before all tests.
+  //--------------------------------------------------------------------------
+  before(function() {
+    // Initiate the TestSite class to access its helper methods.
+    ts = new TestSite('http://qainterview.pythonanywhere.com/')
+  })  
 
   //--------------------------------------------------------------------------
   // Hook to be executed before each test.
@@ -6,7 +19,7 @@ describe('Factorial Calculator Test', function() {
   beforeEach(function() {
     // Some tests would click to a different page.  Revisit this page prior
     // to running each test.
-    cy.visit('http://qainterview.pythonanywhere.com/')
+    ts.visitUrl()
   })
 
   //--------------------------------------------------------------------------
@@ -14,7 +27,7 @@ describe('Factorial Calculator Test', function() {
   //--------------------------------------------------------------------------
   it('Page Title', function() {
     // The title must be 'Factorial' according to the spec.
-    cy.title().should('eq', 'Factorial')
+    ts.verifyTitle('eq', ['Factorial'])
   })
 
   //--------------------------------------------------------------------------
@@ -22,7 +35,7 @@ describe('Factorial Calculator Test', function() {
   //--------------------------------------------------------------------------
   it('Heading', function() {
     // Must have this heading 'The greatest factorial calculator!'
-    cy.get('h1,h2,h3,h4,h5,h6').should('contain', 'The greatest factorial calculator!')
+    ts.verifyHeadings('contain', ['The greatest factorial calculator!'])
   })
 
   //--------------------------------------------------------------------------
@@ -91,10 +104,8 @@ describe('Factorial Calculator Test', function() {
       }
 
       // Input the value, click the button, and verify the result.
-      cy.get('input:first').as('inputField').type(inVal)
-      cy.get('button').click()
-      cy.get('#resultDiv').should('contain', 'The factorial of ' + inVal + ' is: ').and('contain', expectValStr1).and('contain', expectValStr2)
-      cy.get('@inputField').clear()
+      ts.inputValueAndVerifyResult(inVal, 'contain',
+        ['The factorial of ' + inVal + ' is: ', expectValStr1, expectValStr2])
     }
   })
 
@@ -107,15 +118,13 @@ describe('Factorial Calculator Test', function() {
   it('Calculator with integer values outside of supported range', function() {
     var inVal
 
-    // All integer values between 170-989 currently return 
+    // All integer values between 171-989 currently return 
     // 'The factorial of <num> is: Infinity'.  The spec doesn't indicate what
     // error should be returned in this situation.  This test may need to be
     // updated once that's clarified.
     for (inVal of ['171', '989']) {
-      cy.get('input:first').as('inputField').type(inVal)
-      cy.get('button').as('calculateButton').click()
-      cy.get('#resultDiv').should('contain', 'factorial of ' + inVal + ' is: Infinity')
-      cy.get('@inputField').clear()
+      ts.inputValueAndVerifyResult(inVal, 'contain', 
+        ['factorial of ' + inVal + ' is: Infinity'])
     }
 
     // Integer values >= 990 or integer values < 0 currently do not have any 
@@ -126,11 +135,8 @@ describe('Factorial Calculator Test', function() {
     for (inVal of ['990', '10000000000', '-1', '-10000000000']) {
       // This test requires reloading the page each time to insure that
       // there is no leftover display from the previous test.
-      cy.reload()
-      cy.get('@inputField').type(inVal) 
-      cy.get('@calculateButton').click()
-      cy.get('#resultDiv').should('not.have.text') // shouldn't have text
-      cy.get('@inputField').clear()
+      ts.reloadUrl()
+      ts.inputValueAndVerifyResult(inVal, 'not.have.text', null) 
     } 
   })
 
@@ -147,11 +153,9 @@ describe('Factorial Calculator Test', function() {
     for (inVal of values) {
       // This test requires reloading the page each time to insure that
       // there is no leftover display from the previous test.
-      cy.reload()
-      cy.get('input:first').as('inputField').type(inVal)
-      cy.get('button').click()
-      cy.get('#resultDiv').should('contain', 'Please enter an integer')
-      cy.get('@inputField').clear()
+      ts.reloadUrl()
+      ts.inputValueAndVerifyResult(inVal, 'contain', 
+        ['Please enter an integer'])
     }
   })
 
@@ -159,16 +163,14 @@ describe('Factorial Calculator Test', function() {
   // Verify that the 'Terms and Conditions' link opens the correct page.
   //-------------------------------------------------------------------------
   it('Terms and Conditions', function() {
-    cy.get('a[href]').contains('Terms and Conditions').click()
-    cy.url().should('contain', '/terms')
+    ts.clickLinkAndVerifyUrl('Terms and Conditions', 'contain', ['/terms'])
   })
 
   //-------------------------------------------------------------------------
   // Verify that the 'Privacy' link opens the correct page.
   //-------------------------------------------------------------------------
   it('Privacy', function() {
-    cy.get('a[href]').contains('Privacy').click()
-    cy.url().should('contain', '/privacy')
+    ts.clickLinkAndVerifyUrl('Privacy', 'contain', ['/privacy'])
   })
 
   //-------------------------------------------------------------------------
@@ -177,6 +179,7 @@ describe('Factorial Calculator Test', function() {
   it('Copyright', function() {
     // The Copyright link goes to an external page, so the test only verifies 
     // the link instead of clicking on it.
-    cy.get('a[href]').contains('Qxf2 Services').should('have.attr', 'href').and('contain', 'https://www.qxf2.com/')
+    ts.checkLinkAndVerifyUrl('Qxf2 Services', 'contain', 
+      ['https://www.qxf2.com/'])
   })
 })
