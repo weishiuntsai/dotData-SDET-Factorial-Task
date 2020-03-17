@@ -70,7 +70,7 @@ To run the tests, start Cypress Test Runner:
 2. Click on **factorial_spec.js**
 3. A browser should show up and the tests will be run automatically.
 
-## Test Layout
+## Test layout
 This test contains a test file **factorial/cypress/integration/factorial_spec.js** and a library **factorial/cypress/dotdata_lib/test_site.js**.  The test file implements the Cypress tests.  The library implements the utilities and helper methods.  The library directory **factorial/cypress/dotdata_lib** is designed to be the central location for private testing libraries, so that all private Cypress testing libraries can be collected in one place in the future.
 
 ## Test results
